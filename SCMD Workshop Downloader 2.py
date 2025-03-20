@@ -12,6 +12,7 @@ import json
 import sys
 import os
 import re
+import subprocess
 from PyQt5 import QtCore,QtGui,QtWidgets
 from PyQt5.QtGui import QCursor,QIcon,QFont,QFontDatabase,QPalette,QColor,QIntValidator,QPixmap
 from PyQt5.QtCore import QEvent,Qt,QPoint,pyqtSignal
@@ -1993,9 +1994,10 @@ class scmdwd(QtWidgets.QMainWindow):
         download={"script":self.script,"list":self.linksfixedlist,"datetime":datetimenow}
         with open('./data/download.json','w') as f:
             json.dump(download,f)
-        if os.path.exists(os.path.realpath('SCMD List Manager.exe'))==True:
+        if os.path.exists(os.path.realpath('SCMD List Manager.py'))==True:
             try:
-                os.startfile(os.path.realpath('SCMD List Manager.exe'))
+                # Use python to run the script
+                subprocess.Popen(['python', 'SCMD List Manager.py'])
             except:
                 self.Info_Line.setText('SCMD List Manager is broken (0)')
                 try:
